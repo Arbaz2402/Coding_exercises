@@ -1,27 +1,28 @@
 #include <iostream>
 #include <vector>
 #include <string>
-
+#include <string>
+using namespace std;
 // Base class for smart devices
 class Device {
 protected:
     int deviceID;
-    std::string deviceType;
+    string deviceType;
 
 public:
-    Device(int deviceID, std::string deviceType) : deviceID(deviceID), deviceType(deviceType) {}
+    Device(int deviceID, string deviceType) : deviceID(deviceID), deviceType(deviceType) {}
 
     int getDeviceID() const {
         return deviceID;
     }
 
-    virtual std::string getStatus() = 0;
+    virtual string getStatus() = 0;
 };
 
 // Light class, a subclass of Device
 class Light : public Device {
 private:
-    std::string status;
+    string status;
 
 public:
     Light(int deviceID) : Device(deviceID, "Light"), status("off") {}
@@ -34,8 +35,8 @@ public:
         status = "off";
     }
 
-    std::string getStatus() override {
-        return "Light " + std::to_string(getDeviceID()) + " is " + status + ".";
+    string getStatus() override {
+        return "Light " + to_string(getDeviceID()) + " is " + status + ".";
     }
 };
 
@@ -47,20 +48,20 @@ private:
 public:
     Thermostat(int deviceID) : Device(deviceID, "Thermostat"), temperature(70) {}
 
-    std::string getStatus() override {
-        return "Thermostat is set to " + std::to_string(temperature) + " degrees.";
+    string getStatus() override {
+        return "Thermostat is set to " + to_string(temperature) + " degrees.";
     }
 };
 
 // DoorLock class, a subclass of Device
 class DoorLock : public Device {
 private:
-    std::string status;
+    string status;
 
 public:
     DoorLock(int deviceID) : Device(deviceID, "DoorLock"), status("locked") {}
 
-    std::string getStatus() override {
+    string getStatus() override {
         return "Door is " + status + ".";
     }
 };
@@ -68,7 +69,7 @@ public:
 // Factory for creating devices
 class DeviceFactory {
 public:
-    static Device* createDevice(int deviceID, std::string deviceType) {
+    static Device* createDevice(int deviceID, string deviceType) {
         if (deviceType == "Light") {
             return new Light(deviceID);
         } else if (deviceType == "Thermostat") {
@@ -84,7 +85,7 @@ public:
 // Proxy class for controlling devices
 class DeviceController {
 private:
-    std::vector<Device*> devices;
+    vector<Device*> devices;
 
 public:
     void addDevice(Device* device) {
@@ -111,8 +112,8 @@ public:
         }
     }
 
-    std::string getStatusReport() {
-        std::string report = "";
+    string getStatusReport() {
+        string report = "";
         for (Device* device : devices) {
             report += device->getStatus() + " ";
         }
@@ -128,6 +129,6 @@ int main() {
     controller.turnOn(1);
     controller.turnOn(2);
     controller.turnOn(3);
-    std::cout << controller.getStatusReport() << std::endl;
+    cout << controller.getStatusReport() << endl;
     return 0;
 }
