@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <string>
+
 using namespace std;
 // Base class for smart devices
 class Device {
